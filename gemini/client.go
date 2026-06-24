@@ -45,7 +45,7 @@ func (c *Client) SendSetup(systemInstruction string, toolDeclarations []map[stri
 
 	setupPayload := map[string]interface{}{
 		"setup": map[string]interface{}{
-			"model": "models/gemini-2.0-flash-exp",
+			"model": "models/gemini-3.1-flash-live-preview",
 			"system_instruction": map[string]interface{}{
 				"parts": []map[string]interface{}{
 					{"text": systemInstruction},
