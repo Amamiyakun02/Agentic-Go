@@ -37,7 +37,7 @@ Menyediakan backend voice assistant yang super responsif, aman dari race-conditi
 
 ## 🛠️ Stack Layanan Gratis (Free Tier APIs)
 Semua API dan database yang digunakan dalam konfigurasi ini bersifat gratis:
-* **Gemini API & Gemini Live Preview**: Menggunakan model `gemini-2.0-flash-exp` (gratis pada Google AI Studio preview tier).
+* **Gemini API & Gemini Live Preview**: Menggunakan model `gemini-3.1-flash-live-preview` (gratis pada Google AI Studio preview tier).
 * **Qdrant Cloud**: Vector database gratis untuk pencarian dokumen/RAG.
 * **MongoDB Atlas**: Database gratis untuk menyimpan riwayat percakapan secara permanen.
 * **Supabase**: Backend database & object storage gratis.
