@@ -1,0 +1,201 @@
+basePath: /
+definitions:
+  models.SyncDeviceAppsRequest:
+    properties:
+      apps:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      device_id:
+        type: string
+      timestamp:
+        type: string
+      user_id:
+        type: string
+    required:
+    - apps
+    - device_id
+    - user_id
+    type: object
+  models.UserLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.UserRegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      phone:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: support@aimer.com
+    name: API Support
+  description: Backend API for Personal Assistant (Golang Version)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: AgenticGo API
+  version: "1.0"
+paths:
+  /v1/admin/sync-device-apps:
+    post:
+      consumes:
+      - application/json
+      description: Receives app inventory list from Android device and stores it in
+        MongoDB
+      parameters:
+      - description: App Inventory Info
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.SyncDeviceAppsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Sync device apps inventory
+      tags:
+      - admin
+  /v1/admin/sync-github:
+    post:
+      consumes:
+      - application/json
+      description: Fetches repos from GitHub and ingests into Qdrant concurrently
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Sync GitHub repositories
+      tags:
+      - admin
+  /v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user and return an access token
+      parameters:
+      - description: User Login Info
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login user
+      tags:
+      - auth
+  /v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new customer account
+      parameters:
+      - description: User Registration Info
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register a new user
+      tags:
+      - auth
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

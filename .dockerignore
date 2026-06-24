@@ -1,0 +1,24 @@
+# Git repository
+.git
+.gitignore
+
+# Go build files
+main
+agentic_server
+*.exe
+*.test
+*.out
+
+# Environment variables
+.env
+.env.local
+
+# IDE/Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
